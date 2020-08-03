@@ -2,6 +2,7 @@
   "name": "Getting Started Example",
   "version": "0.001",
   "description": "Test!",
+  "permissions": ["storage"],
   "background": {
     "scripts": ["background.js"],
     "persistent": false
