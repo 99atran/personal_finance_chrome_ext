@@ -6,5 +6,5 @@
 
 let newTab = document.getElementById('newTab');
 newTab.onclick = function(element) {
-  chrome.tabs.create({url: "http://www.stackoverflow.com"});
+  chrome.tabs.create({url: "homepage.html"});
 };
