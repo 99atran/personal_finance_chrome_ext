@@ -1,7 +1,7 @@
 {
-  "name": "Getting Started Example",
+  "name": "Basic Budgeter (Tentative)",
   "version": "0.0.1",
-  "description": "Test!",
+  "description": "This extension provides a lightweight visualization of your budget spending without accessing critical information.",
   "options_page": "options.html",
   "permissions": ["declarativeContent","storage","activeTab"],
   "content_scripts": [{

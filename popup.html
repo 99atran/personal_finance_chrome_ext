@@ -8,16 +8,31 @@
         font-family: ‘Roboto’, sans-serif !important;
         padding-left: 16px !important;
         padding-right: 16px !important;
-        height: 54px !important;
+        height: 40px !important;
+        width: 100%;
         background-color: #14be94 !important;
         background-image: none !important;
         border: 0px #0000 solid !important;
         border-radius: 2px !important;
       }
+      header {
+        padding: 0px 20px;
+        width: 150px;
+      }
+      p {
+        font-size: 14px !important;
+      }
     </style>
   </head>
   <body>
-    <button id="newTab">View Budgeting Progress</button>
+    <header>
+      <div id="popupTitle">
+        <h2 data-i18n="title">Budget Overview</h2>
+      </div>
+    </header>
+    <p>Available Funds: </p>
+    <p>Budget Status: Broke</p>
+    <button id="newTab">View Advanced Report</button>
     <script src="popup.js"></script>
   </body>
 </html>
