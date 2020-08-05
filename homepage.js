@@ -7,9 +7,15 @@ function saveChanges() {
     return;
   }
   // Save it using the Chrome extension storage API.
-  chrome.storage.sync.set({'value': theValue}, function() {
+  chrome.storage.sync.set({'key': theValue}, function() {
     // Notify that we saved.
     message('Settings saved');
+  });
+}
+
+function getReport() {
+  chrome.storage.sync.get(['key'], function(result) {
+    console.log('Value currently is ' + result.key);
   });
 }
 
