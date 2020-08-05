@@ -21,3 +21,9 @@ chrome.runtime.onInstalled.addListener(function() {
     }]);
   });
 });
+
+// Testing opening a new tab on click
+chrome.browserAction.onClicked.addListener(function(activeTab){
+  var newURL = "http://stackoverflow.com/";
+  chrome.tabs.create({ url: newURL });
+});
