@@ -13,7 +13,7 @@ function saveChanges() {
   });
 }
 
-let save_button = document.getElementById('button');
+let save_button = document.getElementById('addItem');
 save_button.onclick = function(element) {
   saveChanges();
 };
