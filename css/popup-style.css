@@ -1,6 +1,7 @@
 body {
     padding: 0px;
     margin: 0px;
+    width: 350px;
 }
 
 button {
@@ -19,7 +20,6 @@ button {
 
 header {
     padding: 0px 10px;
-    width: 250px;
 }
 
 p {
@@ -55,6 +55,7 @@ div.budgetPanel{
     box-shadow: 0 2px 4px 0 hsla(0, 0%, 84%, 0.5);
     margin-bottom: 10px;
     color: #494646;
+    height: 75px;
 }
 
 footer {
@@ -62,7 +63,7 @@ footer {
 }
 
 nav ul {
-    height: 150px;
+    height: 215px;
     overflow: hidden;
     overflow-y: scroll;
     margin: 0px;
