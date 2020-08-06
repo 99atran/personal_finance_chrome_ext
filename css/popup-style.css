@@ -60,3 +60,23 @@ div.budgetPanel{
 footer {
     margin: 10px;
 }
+
+nav ul {
+    height: 150px;
+    overflow: hidden;
+    overflow-y: scroll;
+    margin: 0px;
+    padding: 0px 10px 0px 0px;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-track {
+    border-radius: 20px;
+    margin-bottom: 10px;
+}  
+::-webkit-scrollbar-thumb {
+    background: rgb(143, 143, 143);
+    border-radius: 6px;
+}
