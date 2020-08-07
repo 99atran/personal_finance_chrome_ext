@@ -8,25 +8,20 @@
     <div>
       <h1>Homepage for Our Wonderful Service</h1>
     </div>
-    <form>
-      <fieldset>
-        <legend>Add to Budget List</legend>
-        <p>
-          <label>Budget Item Name</label>
-          <input type = "text"
-                 id = "itemName" />
-        </p>
-        <p>
-          <label>Budget Item Cost</label>
-          <input type = "text"
-                  id = "itemCost" />
-        </p>
-        <p>
-          <button id="addItem">Add</button>
-        </p>
-      </fieldset>
-    </form>
-    <button id="newTab">Generate Spending Report</button>
+    <main>
+      <div>
+        <h2>Select Budget</h2>
+        <select name="Budgets" id="Budgets">
+          <option value="Budget #1">Budget #1</option>
+          <option value="Budget #2">Budget #2</option>
+          <option value="Budget #3">Budget #3</option>
+        </select>
+        <button>Add</button>
+      </div>
+      <div class="diagnostic">
+        ADVANCED DIAGNOSTIC INFO HERE?
+      </div>
+    </main>
   </body>
 
 </html>
