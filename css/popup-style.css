@@ -53,12 +53,20 @@ div.budgetPanel{
     padding: 10px;
     border-style: solid;
     border-width: thin;
-    border-color: #e6e6e6;
+    border-color: #d8d8d8;
     border-radius: 6px;
     box-shadow: 0 2px 4px 0 hsla(0, 0%, 84%, 0.5);
     margin-bottom: 10px;
     color: #494646;
     height: 75px;
+}
+div.progressBar {
+    background-color: green;
+    height: 5px;
+}
+div.progressBase {
+    background-color: gray;
+    height: 5px;
 }
 
 footer {
@@ -83,4 +91,13 @@ nav ul {
 ::-webkit-scrollbar-thumb {
     background: rgb(143, 143, 143);
     border-radius: 6px;
+}
+
+.flex-container {
+    display: flex;
+}
+
+.flex-container > div {
+    margin: 20px 0 0 0;
+    padding: 0;
 }
