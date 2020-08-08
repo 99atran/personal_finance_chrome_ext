@@ -1,6 +1,6 @@
 {
-  "name": "Basic Budgeter (Tentative)",
-  "version": "0.0.1",
+  "name": "Salary Snacker",
+  "version": "0.0.5",
   "description": "This extension provides a lightweight visualization of your budget spending without accessing critical information.",
   "options_page": "options.html",
   "permissions": ["declarativeContent","storage","activeTab"],
