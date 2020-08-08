@@ -1,36 +1,23 @@
-// function saveChanges() {
-//   // Get a value saved in a form.
-//   var textarea = document.getElementById('itemName');
-//   var theValue = textarea.value;
-//   console.log('now' + theValue);
-//   // Check that there's some code there.
-//   if (!theValue) {
-//     message('Error: No value specified');
-//     return;
-//   }
-//   // Save it using the Chrome extension storage API.
-//   chrome.storage.sync.set({'budgets_list': theValue}, function() {
-//     // Notify that we saved.
-//     message('Settings saved');
-//   });
+function populateBudgets() {
+  chrome.storage.sync.get(null, function(items) {
+    var allKeys = Object.keys(items);
+    allKeys.forEach(addToSelect);
+    console.log('done import');
+  });
+}
 
-//   window.alert('the value now' + theValue);
-// }
+function addToSelect(key) {
+  var select = document.getElementById('BudgetsMenu');
 
-// function getReport() {
-//   var textarea = document.getElementById('itemName');
-//   var theValue = textarea.value;
-//   chrome.storage.sync.get(['key'], function(result) {
-//     console.log('Value currently is ' + result.key);
-//     window.alert('the value is' + theValue);
-//   });
-// }
-
-function addBudget() {
-  return;
+  var option_to_add = document.createElement('option');
+  option_to_add.appendChild( document.createTextNode(key) );
+  option_to_add.value = key; 
+  
+  select.appendChild(option_to_add);
 }
 
 /* listeners here */
+document.addEventListener('DOMContentLoaded', populateBudgets);
 
 var addItem = document.getElementById('addItem');
 var newTab = document.getElementById('newTab');
