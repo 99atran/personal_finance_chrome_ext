@@ -1,13 +1,23 @@
-body {background-color: white;}
+head {
+    color: white;
+}
+
+body {
+    background-image: url('background.png');
+    background-position: center;
+}
 main {margin: 0px 0px 10px 10px;}
 
 h1 {
+    color: white;
     border-style: solid;
+    border-color: white;
     border-width: 0px 0px 1px 0px;
 }
 
 h2 {
     margin: 0 0 5px 0;
+    color: white;
 }
 
 button {
