@@ -2,26 +2,39 @@
 
 function printBudgetPanels(key) {
   chrome.storage.sync.get([key], function (value) {
-
+    var limit = parseFloat(value[key][1].toFixed(2));
+    var balance = parseFloat(value[key][0].toFixed(2));
+    
+    //Panel Text
     var panelTitle = document.createElement("p");
     var titleTextNode = document.createTextNode(key);
     panelTitle.appendChild(titleTextNode);
     panelTitle.setAttribute("class", "panelTitle");
 
     var panelStatus = document.createElement("p");
-    var statusTextNode = document.createTextNode("Broke Status: " + value[key][1].toFixed(2));
+    var statusTextNode = document.createTextNode("Broke Status: " +balance +"/" +limit);
     panelStatus.appendChild(statusTextNode);
 
     var textDiv = document.createElement("div");
     textDiv.appendChild(panelTitle);
     textDiv.appendChild(panelStatus);
 
+    //Progress Bar
     var progressBar = document.createElement("div");
     progressBar.setAttribute("class", "progressBar");
-    progressBar.style.width = (value[key][0]/value[key][1]).toFixed(2)*100+"%";
+
+    if (balance >= limit) {
+      progressBar.style.width = "100%";
+      progressBar.style.backgroundColor = "red";
+    } else {
+      progressBar.style.width = (balance/limit)*100+"%";
+    }
+    //progressBar.style.width = (balance/limit)*100+"%";
+    
+    
     var progressBase = document.createElement("div");
     progressBase.setAttribute("class", "progressBase");
-    progressBase.style.width = "100%";
+    progressBase.style.width = 100-(balance/limit)*100+"%";
 
     var progressBarDiv = document.createElement("div");
     progressBarDiv.setAttribute("class", "flex-container");
