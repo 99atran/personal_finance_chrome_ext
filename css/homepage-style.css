@@ -10,6 +10,19 @@ h2 {
     margin: 0 0 5px 0;
 }
 
+button {
+    padding: 6px 24px;
+    border-radius: 4px;
+    transition-duration: 0.4s;
+    transform: translate(0px, -1px);
+    width: 200px;
+}
+
+button:hover {
+    background-color: #2af3b7; /* Green */
+    color: black;
+  }
+
 select {
     width: 50%;
     
