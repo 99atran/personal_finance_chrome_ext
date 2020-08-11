@@ -17,22 +17,25 @@ function addToSelect(key) {
 }
 
 function displayBudgetData(budgetName) {
-  var data = document.getElementById('data');
-  chrome.storage.sync.get([budgetName], function (value) {
-    var limit = parseFloat(value[key][1].toFixed(2));
-    var balance = parseFloat(value[key][0].toFixed(2));
+  if (budgetName === 'select an option...' ) {
+    document.getElementById('data').innerHTML = 'ADVANCED DIAGNOSTIC INFO HERE?';
+  } else {
+      chrome.storage.sync.get([budgetName], function (value) {
+        var limit = parseFloat(value[budgetName][1]);
+        var balance = parseFloat(value[budgetName][0]);
 
-    data.innerHTML = "hi";
-  });
+        document.getElementById('data').innerHTML = '$' + balance.toFixed(2) + ' of $' + limit.toFixed(2);
+      });
+  }
 }
 
 /* listeners here */
 document.addEventListener('DOMContentLoaded', populateBudgets);
 
+
 var addItem = document.getElementById('addItem');
 var newTab = document.getElementById('newTab');
 var selector = document.getElementById('BudgetsMenu');
-
 
 if (addItem) {
   addItem.addEventListener("click", addBudget);
@@ -46,7 +49,8 @@ if (newTab) {
 
 if (selector) {
   selector.onchange = function() {
-    alert(selector.options[selector.selectedIndex].value);
+    displayBudgetData(selector.options[selector.selectedIndex].value);
+
   }
 }
 
