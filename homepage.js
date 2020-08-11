@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', populateBudgets);
 
 var addItem = document.getElementById('addItem');
 var newTab = document.getElementById('newTab');
+var selector = document.getElementById('BudgetsMenu');
+
+
 if (addItem) {
   addItem.addEventListener("click", addBudget);
 }
