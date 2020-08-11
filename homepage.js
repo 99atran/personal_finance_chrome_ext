@@ -23,26 +23,26 @@ function displayBudgetData(budgetName) {
       chrome.storage.sync.get([budgetName], function (value) {
         var limit = parseFloat(value[budgetName][1]);
         var balance = parseFloat(value[budgetName][0]);
-        makeGraph();
+        makeGraph(budgetName, balance, limit);
         document.getElementById('data').innerHTML = '$' + balance.toFixed(2) + ' of $' + limit.toFixed(2);
       });
   }
 }
 
-function makeGraph() {
+function makeGraph(budgetName, balance, limit) {
   var ctx = document.getElementById('myChart').getContext('2d');
   var chart = new Chart(ctx, {
       // The type of chart we want to create
-      type: 'line',
+      type: 'pie',
 
       // The data for our dataset
       data: {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+          labels: ['Spent','Remaining'],
           datasets: [{
-              label: 'My First dataset',
+              label: budgetName,
               backgroundColor: 'rgb(255, 99, 132)',
               borderColor: 'rgb(255, 99, 132)',
-              data: [0, 10, 5, 2, 20, 30, 45]
+              data: [balance, (limit - balance)]
           }]
       },
 
