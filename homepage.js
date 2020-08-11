@@ -16,6 +16,12 @@ function addToSelect(key) {
   select.appendChild(option_to_add);
 }
 
+function removeFromSelect(index) {
+  var select = document.getElementById('BudgetsMenu');
+
+  select.remove(index);
+}
+
 /* Validates budget name input */
 function validateName() {
   var inpObj = document.getElementById("budgetNameInput");
@@ -39,7 +45,7 @@ function validateLimit() {
 
 /* Add new budget to list */
 let createBudget = document.getElementById("addBudget");
-createBudget.onclick = function(element) {
+createBudget.onclick = function() {
   var err = "";
   
   if (!validateName() || !validateLimit()) {
@@ -53,12 +59,8 @@ createBudget.onclick = function(element) {
     save[item] = [0, document.getElementById("budgetLimitInput").value];
     chrome.storage.sync.set(save);
 
-    addToSelect(item);//Update select menu
-    // chrome.storage.sync.get(null, function(items) { //Update popup
-    //   var allKeys = Object.keys(items);
-    //   allKeys.forEach(printBudgetPanels()); //figure out how to call from popup.js
-    // });
-
+    //Update select menu
+    addToSelect(item);
 
     //Clear inputs
     document.getElementById("budgetNameInput").value = "";
@@ -69,6 +71,24 @@ createBudget.onclick = function(element) {
   
   document.getElementById("errorMessage").innerHTML = err;
 };
+
+/* Removes selected budget from list */
+let deleteBudget = document.getElementById("deleteBudgets");
+deleteBudget.onclick = function() {
+  var selector = document.getElementById('BudgetsMenu');
+  var selected = selector.options[selector.selectedIndex].value;
+
+  if (selected != 'select an option...' ) {
+    console.log(selected);  
+    
+    //Remove from storage
+    chrome.storage.sync.remove(selected);
+
+    //Remove from select
+    removeFromSelect(selector.selectedIndex);
+    displayBudgetData(selector.options[0].value)
+  }
+}
 
 function displayBudgetData(budgetName) {
   if (budgetName === 'select an option...' ) {
