@@ -45,9 +45,8 @@ if (newTab) {
 }
 
 if (selector) {
-  selector.change(function(s) {
-    alert(selector.options[selector.selected].value);
-    displayBudgetData(selector.options[selector.selected].value);
-  });
+  selector.onchange = function() {
+    alert(selector.options[selector.selectedIndex].value);
+  }
 }
 
