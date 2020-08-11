@@ -10,7 +10,20 @@
     </div>
     <main>
       <div>
-        <button id='createBudget'>Create New Budget</button>
+        <div class="dropdown" id="createBudget">
+          <span>Create New Budget</span>
+          <div class="dropdown-content">
+            <form>
+              <label for="budgetName">Budget Name</label>
+              <input type="text" id="budgetName" name="budgetName" placeholder="Budget name..">
+          
+              <label for="budgetLimit">Budget Limit</label>
+              <input type="text" id="budgetLimit" name="budgetLimit" placeholder="Ex. 999.00">
+            
+              <input type="submit" value="Submit">
+            </form>
+          </div>
+        </div>
         <button id='editBudgets'>Edit Budgets</button>
         <h2>Select Budget</h2>
         <select name="BudgetsMenu" id="BudgetsMenu">
