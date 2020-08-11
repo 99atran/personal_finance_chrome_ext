@@ -29,9 +29,9 @@ function displayBudgetData(budgetName) {
   }
 }
 
-function makeGraph(budgetName, balance, limit) {
-  var ctx = document.getElementById('myChart').getContext('2d');
-  var chart = new Chart(ctx, {
+function makeGraph(budgetName, balance, limit) {  
+  chart.clear();
+  chart = new Chart(ctx, {
       // The type of chart we want to create
       type: 'pie',
 
@@ -40,8 +40,11 @@ function makeGraph(budgetName, balance, limit) {
           labels: ['Spent','Remaining'],
           datasets: [{
               label: budgetName,
-              backgroundColor: 'rgb(255, 99, 132)',
-              borderColor: 'rgb(255, 99, 132)',
+              backgroundColor: [
+                'rgb(84, 235, 185)',
+                'rgb(255, 99, 132)'
+              ],
+              borderColor: 'rgb(42, 112, 89)',
               data: [balance, (limit - balance)]
           }]
       },
@@ -74,3 +77,26 @@ if (selector) {
 
   }
 }
+
+var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+  // The type of chart we want to create
+  type: 'pie',
+
+  // The data for our dataset
+  data: {
+      labels: ['Spent','Remaining'],
+      datasets: [{
+          label: 'hi',
+          backgroundColor: [
+            'rgb(84, 235, 185)',
+            'rgb(255, 99, 132)'
+          ],
+          borderColor: 'rgb(42, 112, 89)',
+          data: [0, 0]
+      }]
+  },
+
+  // Configuration options go here
+  options: {}
+});
