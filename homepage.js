@@ -16,6 +16,49 @@ function addToSelect(key) {
   select.appendChild(option_to_add);
 }
 
+/* Validates budget name input */
+function validateName() {
+  var inpObj = document.getElementById("budgetNameInput");
+  
+  console.log("Input:"+document.getElementById("budgetNameInput").value + " " +inpObj.checkValidity());
+  return inpObj.checkValidity();
+} 
+
+/* Validates budget limit input */
+function validateLimit() {
+  var inpObj = document.getElementById("budgetLimitInput");
+  
+  console.log("Input:"+document.getElementById("budgetLimitInput").value);
+  return inpObj.checkValidity();
+}
+
+/* Add new budget to list */
+let createBudget = document.getElementById("addBudget");
+createBudget.onclick = function(element) {
+  var err = "";
+  
+  if (!validateName() || !validateLimit()) {
+    console.log("Invalid Input");
+    err = "Ya dun goofed";
+  } else {
+    var item = document.getElementById("budgetNameInput").value;
+    var save = {};
+    
+    //Add to storage
+    save[item] = [0, document.getElementById("budgetLimitInput").value];
+    chrome.storage.sync.set(save);
+    addToSelect(item);//Update select menu
+
+    //Clear inputs
+    document.getElementById("budgetNameInput").value = "";
+    document.getElementById("budgetLimitInput").value = "";
+
+    console.log("Added Input");
+  }
+  
+  document.getElementById("errorMessage").innerHTML = err;
+};
+
 function displayBudgetData(budgetName) {
   if (budgetName === 'select an option...' ) {
     document.getElementById('data').innerHTML = 'ADVANCED DIAGNOSTIC INFO HERE?';
