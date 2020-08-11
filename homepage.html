@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Salary Snacker</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <link rel="stylesheet" type="text/css" href="css/homepage-style.css"></link>
   </head>
   <body>
@@ -30,8 +31,9 @@
           <option id='select_option'>select an option...</option>
         </select>
       </div>
-      <div class="diagnostic">
+      <div class="diagnostic" id="container">
         <p id='data'>ADVANCED DIAGNOSTIC INFO HERE?</p>
+        <canvas id="myChart"></canvas>
       </div>
     </main>
   </body>
