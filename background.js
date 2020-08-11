@@ -2,7 +2,7 @@ function printBudgetData(key) {
   chrome.storage.sync.get([key], function (value) {
     
 //debugging code
-var limit = value[key][1].toFixed(2);
+var limit = value[key][1].toFixed(2); //toFixed returns String
 var balance = value[key][0].toFixed(2);
 if (balance == limit) {
   console.log(key + ', with a limit of $' + limit +
@@ -19,7 +19,7 @@ if (balance == limit) {
 
 
 chrome.runtime.onInstalled.addListener(function() {
-  chrome.storage.sync.set({'budget_01': [69.69, 69.69]});
+  chrome.storage.sync.set({'budget_01': [60, 69.69]});
   chrome.storage.sync.set({'budget_02': [2.50, 13.00]});
   chrome.storage.sync.set({'budget_03': [999999.0, 123412.00]});
   chrome.storage.sync.set({'budget_04': [2000.0, 3255.01]});

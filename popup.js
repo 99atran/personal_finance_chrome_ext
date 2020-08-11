@@ -25,11 +25,16 @@ function printBudgetPanels(key) {
 
     if (balance >= limit) {
       progressBar.style.width = "100%";
-      progressBar.style.backgroundColor = "red";
+      progressBar.style.backgroundColor = "darkred";
     } else {
+      if ((balance/limit)*100 >= 75) {
+        progressBar.style.backgroundColor = "orange";
+      } else if ((balance/limit)*100 >= 50) {
+        progressBar.style.backgroundColor = "gold";
+      }
+
       progressBar.style.width = (balance/limit)*100+"%";
     }
-    //progressBar.style.width = (balance/limit)*100+"%";
     
     
     var progressBase = document.createElement("div");
