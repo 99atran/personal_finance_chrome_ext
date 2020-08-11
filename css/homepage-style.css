@@ -45,6 +45,30 @@ select {
     font-size: 16px;
 }
 
+.dropdown {
+    position: relative;
+    display: inline-block;
+    background-color: #f9f9f9;
+    
+    color: black;
+    text-align: center;
+
+    min-width: 200px;
+    padding: 6px 0px;
+} 
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 20px 10px 5px 10px;
+    z-index: 1;
+} 
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
 div.diagnostic {
     background-color: #f7f7f7da;
 
@@ -58,4 +82,29 @@ div.diagnostic {
     font-size: 20px;
 
     height: 650px;
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 8px 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+  
+input[type=submit] {
+    width: 100%;
+    background-color: #14be94;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+  
+input[type=submit]:hover {
+    background-color: #13ad87;
 }
