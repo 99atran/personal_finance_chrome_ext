@@ -29,6 +29,11 @@ function validateLimit() {
   var inpObj = document.getElementById("budgetLimitInput");
   
   console.log("Input:"+document.getElementById("budgetLimitInput").value);
+
+  if (parseFloat(inpObj.value) == 0) {
+    return false;
+  }
+
   return inpObj.checkValidity();
 }
 
