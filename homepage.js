@@ -32,7 +32,6 @@ function displayBudgetData(budgetName) {
 /* listeners here */
 document.addEventListener('DOMContentLoaded', populateBudgets);
 
-
 var addItem = document.getElementById('addItem');
 var newTab = document.getElementById('newTab');
 var selector = document.getElementById('BudgetsMenu');
@@ -53,4 +52,3 @@ if (selector) {
 
   }
 }
-
