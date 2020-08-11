@@ -47,7 +47,13 @@ createBudget.onclick = function(element) {
     //Add to storage
     save[item] = [0, document.getElementById("budgetLimitInput").value];
     chrome.storage.sync.set(save);
+
     addToSelect(item);//Update select menu
+    // chrome.storage.sync.get(null, function(items) { //Update popup
+    //   var allKeys = Object.keys(items);
+    //   allKeys.forEach(printBudgetPanels()); //figure out how to call from popup.js
+    // });
+
 
     //Clear inputs
     document.getElementById("budgetNameInput").value = "";
