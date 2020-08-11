@@ -16,6 +16,16 @@ function addToSelect(key) {
   select.appendChild(option_to_add);
 }
 
+function displayBudgetData(budgetName) {
+  var data = document.getElementById('data');
+  chrome.storage.sync.get([budgetName], function (value) {
+    var limit = parseFloat(value[key][1].toFixed(2));
+    var balance = parseFloat(value[key][0].toFixed(2));
+
+    data.innerHTML = "hi";
+  });
+}
+
 /* listeners here */
 document.addEventListener('DOMContentLoaded', populateBudgets);
 
@@ -32,5 +42,12 @@ if (newTab) {
   newTab.onclick = function() {
     getReport();
   }
+}
+
+if (selector) {
+  selector.change(function(s) {
+    alert(selector.options[selector.selected].value);
+    displayBudgetData(selector.options[selector.selected].value);
+  });
 }
 
