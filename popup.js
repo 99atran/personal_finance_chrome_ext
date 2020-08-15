@@ -2,8 +2,9 @@
 
 function printBudgetPanels(key) {
   chrome.storage.sync.get([key], function (value) {
-    var limit = parseFloat(value[key][1].toFixed(2));
-    var balance = parseFloat(value[key][0].toFixed(2));
+    
+    var limit = parseFloat(value[key][1]);
+    var balance = parseFloat(value[key][0]);
     
     //Panel Text
     var panelTitle = document.createElement("p");

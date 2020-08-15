@@ -16,6 +16,12 @@ function addToSelect(key) {
   select.appendChild(option_to_add);
 }
 
+function removeFromSelect(index) {
+  var select = document.getElementById('BudgetsMenu');
+
+  select.remove(index);
+}
+
 /* Validates budget name input */
 function validateName() {
   var inpObj = document.getElementById("budgetNameInput");
@@ -29,12 +35,17 @@ function validateLimit() {
   var inpObj = document.getElementById("budgetLimitInput");
   
   console.log("Input:"+document.getElementById("budgetLimitInput").value);
+
+  if (parseFloat(inpObj.value) == 0) {
+    return false;
+  }
+
   return inpObj.checkValidity();
 }
 
 /* Add new budget to list */
 let createBudget = document.getElementById("addBudget");
-createBudget.onclick = function(element) {
+createBudget.onclick = function() {
   var err = "";
   
   if (!validateName() || !validateLimit()) {
@@ -47,7 +58,9 @@ createBudget.onclick = function(element) {
     //Add to storage
     save[item] = [0, document.getElementById("budgetLimitInput").value];
     chrome.storage.sync.set(save);
-    addToSelect(item);//Update select menu
+
+    //Update select menu
+    addToSelect(item);
 
     //Clear inputs
     document.getElementById("budgetNameInput").value = "";
@@ -59,7 +72,24 @@ createBudget.onclick = function(element) {
   document.getElementById("errorMessage").innerHTML = err;
 };
 
-/* Updates data in main panel after a new budget is selected */
+/* Removes selected budget from list */
+let deleteBudget = document.getElementById("deleteBudgets");
+deleteBudget.onclick = function() {
+  var selector = document.getElementById('BudgetsMenu');
+  var selected = selector.options[selector.selectedIndex].value;
+
+  if (selected != 'select an option...' ) {
+    console.log(selected);  
+    
+    //Remove from storage
+    chrome.storage.sync.remove(selected);
+
+    //Remove from select
+    removeFromSelect(selector.selectedIndex);
+    displayBudgetData(selector.options[0].value)
+  }
+}
+
 function displayBudgetData(budgetName) {
   if (budgetName === 'select an option...' ) {
     document.getElementById('data').innerHTML = 'ADVANCED DIAGNOSTIC INFO HERE?';
