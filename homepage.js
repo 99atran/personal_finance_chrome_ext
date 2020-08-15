@@ -59,6 +59,7 @@ createBudget.onclick = function(element) {
   document.getElementById("errorMessage").innerHTML = err;
 };
 
+/* Updates data in main panel after a new budget is selected */
 function displayBudgetData(budgetName) {
   if (budgetName === 'select an option...' ) {
     document.getElementById('data').innerHTML = 'ADVANCED DIAGNOSTIC INFO HERE?';
@@ -73,73 +74,61 @@ function displayBudgetData(budgetName) {
 }
 
 function makeGraph(budgetName, balance, limit) {  
-  chart.clear();
-  chart = new Chart(ctx, {
-      // The type of chart we want to create
-      type: 'pie',
-
-      // The data for our dataset
-      data: {
-          labels: ['Spent','Remaining'],
-          datasets: [{
-              label: budgetName,
-              backgroundColor: [
-                'rgb(84, 235, 185)',
-                'rgb(255, 99, 132)'
-              ],
-              borderColor: 'rgb(42, 112, 89)',
-              data: [balance, (limit - balance)]
-          }]
-      },
-
-      // Configuration options go here
-      options: {}
-  });
+  var newData = {
+    data: [balance, parseFloat((limit - balance).toFixed(2))],
+    label: budgetName,
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(84, 235, 185)'
+    ],
+    borderColor: 'rgb(42, 112, 89)',
+  };
+  config.data.datasets.pop();
+  config.data.datasets.push(newData);
+  window.pieChart.update();
 }
 
-/* listeners here */
+/* listeners and global vars here */
 document.addEventListener('DOMContentLoaded', populateBudgets);
-
-var addItem = document.getElementById('addItem');
-var newTab = document.getElementById('newTab');
 var selector = document.getElementById('BudgetsMenu');
 
-if (addItem) {
-  addItem.addEventListener("click", addBudget);
-}
+var config = {
+    // The type of chart we want to create
+    type: 'pie',
 
-if (newTab) {
-  newTab.onclick = function() {
-    getReport();
-  }
-}
+    // The data for our dataset
+    data: {
+        labels: ['Spent','Remaining'],
+        datasets: [{
+            label: '',
+            backgroundColor: [
+              'rgb(255, 99, 132)',
+              'rgb(84, 235, 185)'
+            ],
+            borderColor: 'rgb(42, 112, 89)',
+            data: [0, 0]
+        }]
+    },
 
+    // Configuration options go here
+    options: {
+      title: {
+        text: '',
+        display: false
+      }
+    }
+};
+
+/* call budget data display function upon change in selector value */
 if (selector) {
   selector.onchange = function() {
     displayBudgetData(selector.options[selector.selectedIndex].value);
-
   }
 }
 
-var ctx = document.getElementById('myChart').getContext('2d');
-var chart = new Chart(ctx, {
-  // The type of chart we want to create
-  type: 'pie',
-
-  // The data for our dataset
-  data: {
-      labels: ['Spent','Remaining'],
-      datasets: [{
-          label: 'hi',
-          backgroundColor: [
-            'rgb(84, 235, 185)',
-            'rgb(255, 99, 132)'
-          ],
-          borderColor: 'rgb(42, 112, 89)',
-          data: [0, 0]
-      }]
-  },
-
-  // Configuration options go here
-  options: {}
-});
+/* initialize the chart item */
+window.onload = function() {
+  console.log('hi');
+  var ctx = document.getElementById('myChart').getContext('2d');
+  window.pieChart = new Chart(ctx, config);
+}
