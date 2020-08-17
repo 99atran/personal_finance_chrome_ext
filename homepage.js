@@ -43,6 +43,91 @@ function validateLimit() {
   return inpObj.checkValidity();
 }
 
+/* updates the diagnostic section of the page to the current budget selected */
+function displayBudgetData(budgetName) {
+  if (budgetName === 'select an option...' ) {
+    document.getElementById('data').innerHTML = 'Select a budget to see it\'s breakdown';
+    var newData = {
+      data: [0.0, 0.0],
+      label: 'No Budget Selected',
+      backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(84, 235, 185)'
+      ],
+      borderColor: 'rgb(42, 112, 89)',
+    };
+    config.data.datasets.pop();
+    window.pieChart.options.title.text = 'No Budget Selected';
+    config.data.datasets.push(newData);
+    window.pieChart.update();
+  } else {
+      chrome.storage.sync.get([budgetName], function (value) {
+        var limit = parseFloat(value[budgetName][1]);
+        var balance = parseFloat(value[budgetName][0]);
+        var percent = (balance / limit) * 100;
+
+        makeGraph(budgetName, balance, limit);
+        let displayStatus = '$' + balance.toFixed(2) + ' of $' + limit.toFixed(2) + ' (' + percent.toFixed(0) + '%)';
+        
+        if (balance / limit < 0.5) {
+          document.getElementById('data').style.color = 'black';
+          displayStatus += "<br>This budget is very healthy, no need to worry for now."
+        } else if (balance / limit < 0.75) {
+          document.getElementById('data').style.color = 'black';
+          displayStatus += "<br>This budget is healthy, keep an eye out on purchases charging to this budget."
+        } else if (balance / limit < 1.0) {
+          document.getElementById('data').style.color = 'black';
+          displayStatus += "<br>This budget is near maximum capacity, spend wisely or sparingly to avoid overcharging."
+        } else {
+          document.getElementById('data').style.color = 'red';
+          displayStatus += "<br>This budget is BUSTED! Try to spend more wisely when you are budgeting :("
+        }
+        document.getElementById('data').innerHTML = displayStatus;
+      });
+  }
+}
+
+/* edits the graph to reflect the data of the budget selected */
+function makeGraph(budgetName, balance, limit) {
+  var newLabels = ['Spent', 'Remaining'];
+  
+  if (limit - balance < 0) {
+    newLabels = ['Spent', 'Remaining', 'Overspend'];
+    var newData = {
+      data: [limit,,parseFloat((balance - limit).toFixed(2))],
+      label: budgetName,
+      backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(84, 235, 185)',
+        'rgb(20, 50, 20)'
+      ],
+      borderColor: 'rgb(42, 112, 89)',
+    }
+  } else {
+    var newData = {
+      data: [balance, parseFloat((limit - balance).toFixed(2))],
+      label: budgetName,
+      backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(84, 235, 185)'
+      ],
+      borderColor: 'rgb(42, 112, 89)',
+    };
+  } 
+  config.data.datasets.pop();
+  config.data.labels = newLabels;
+  config.data.datasets.push(newData);
+  window.pieChart.options.title.text = budgetName;
+  window.pieChart.update();
+}
+
+/************************************************************************************************************/
+
+
+/* listeners and global vars here */
+document.addEventListener('DOMContentLoaded', populateBudgets);
+var selector = document.getElementById('BudgetsMenu');
+
 /* Add new budget to list */
 let createBudget = document.getElementById("addBudget");
 createBudget.onclick = function() {
@@ -90,8 +175,6 @@ deleteBudget.onclick = function() {
   }
 };
 
-
-
 // Get the modal
 var modal = document.getElementById("editModal");
 
@@ -118,74 +201,7 @@ window.onclick = function(event) {
   }
 }
 
-
-
-
-
-
-function displayBudgetData(budgetName) {
-  if (budgetName === 'select an option...' ) {
-    document.getElementById('data').innerHTML = 'ADVANCED DIAGNOSTIC INFO HERE?';
-    var newData = {
-      data: [0.0, 0.0],
-      label: 'No Budget Selected',
-      backgroundColor: [
-        'rgb(255, 99, 132)',
-        'rgb(84, 235, 185)'
-      ],
-      borderColor: 'rgb(42, 112, 89)',
-    };
-    config.data.datasets.pop();
-    window.pieChart.options.title.text = 'No Budget Selected';
-    config.data.datasets.push(newData);
-    window.pieChart.update();
-  } else {
-      chrome.storage.sync.get([budgetName], function (value) {
-        var limit = parseFloat(value[budgetName][1]);
-        var balance = parseFloat(value[budgetName][0]);
-        makeGraph(budgetName, balance, limit);
-        document.getElementById('data').innerHTML = '$' + balance.toFixed(2) + ' of $' + limit.toFixed(2);
-      });
-  }
-}
-
-function makeGraph(budgetName, balance, limit) {
-  var newLabels = ['Spent', 'Remaining'];
-  
-  if (limit - balance < 0) {
-    newLabels = ['Spent', 'Remaining', 'Overspend'];
-    var newData = {
-      data: [limit,null,parseFloat((balance - limit).toFixed(2))],
-      label: budgetName,
-      backgroundColor: [
-        'rgb(255, 99, 132)',
-        'rgb(84, 235, 185)',
-        'rgb(20, 50, 20)'
-      ],
-      borderColor: 'rgb(42, 112, 89)',
-    }
-  } else {
-    var newData = {
-      data: [balance, parseFloat((limit - balance).toFixed(2))],
-      label: budgetName,
-      backgroundColor: [
-        'rgb(255, 99, 132)',
-        'rgb(84, 235, 185)'
-      ],
-      borderColor: 'rgb(42, 112, 89)',
-    };
-  } 
-  config.data.datasets.pop();
-  config.data.labels = newLabels;
-  config.data.datasets.push(newData);
-  window.pieChart.options.title.text = budgetName;
-  window.pieChart.update();
-}
-
-/* listeners and global vars here */
-document.addEventListener('DOMContentLoaded', populateBudgets);
-var selector = document.getElementById('BudgetsMenu');
-
+/* INITIALIZATION OF THE CHART */
 var config = {
     // The type of chart we want to create
     type: 'pie',
