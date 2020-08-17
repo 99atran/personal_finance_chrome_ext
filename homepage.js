@@ -117,8 +117,20 @@ function displayBudgetData(budgetName) {
 }
 
 function makeGraph(budgetName, balance, limit) {
+  var newLabels = ['Spent', 'Remaining'];
+  
   if (limit - balance < 0) {
-    
+    newLabels = ['Spent', 'Remaining', 'Overspend'];
+    var newData = {
+      data: [limit,null,parseFloat((balance - limit).toFixed(2))],
+      label: budgetName,
+      backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(84, 235, 185)',
+        'rgb(20, 50, 20)'
+      ],
+      borderColor: 'rgb(42, 112, 89)',
+    }
   } else {
     var newData = {
       data: [balance, parseFloat((limit - balance).toFixed(2))],
@@ -129,12 +141,12 @@ function makeGraph(budgetName, balance, limit) {
       ],
       borderColor: 'rgb(42, 112, 89)',
     };
-    config.data.datasets.pop();
-    config.data.datasets.push(newData);
-    window.pieChart.options.title.text = budgetName;
-    window.pieChart.update();
-  }
-
+  } 
+  config.data.datasets.pop();
+  config.data.labels = newLabels;
+  config.data.datasets.push(newData);
+  window.pieChart.options.title.text = budgetName;
+  window.pieChart.update();
 }
 
 /* listeners and global vars here */
