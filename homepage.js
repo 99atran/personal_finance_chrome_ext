@@ -90,7 +90,12 @@ function displayBudgetData(budgetName) {
 /* edits the graph to reflect the data of the budget selected */
 function makeGraph(budgetName, balance, limit) {
   var newLabels = ['Spent', 'Remaining'];
-  
+  var newTitle = {
+    text: 'No Budget Selected',
+    display: true,
+    fontFamily: "'Roboto', sans-serif",
+    fontSize: 36,
+  }
   if (limit - balance < 0) {
     newLabels = ['Spent', 'Remaining', 'Overspend'];
     var newData = {
@@ -117,6 +122,7 @@ function makeGraph(budgetName, balance, limit) {
   config.data.datasets.pop();
   config.data.labels = newLabels;
   config.data.datasets.push(newData);
+  config.options.title = newTitle;
   window.pieChart.options.title.text = budgetName;
   window.pieChart.update();
 }
@@ -224,9 +230,13 @@ var config = {
     options: {
       title: {
         text: 'No Budget Selected',
-        display: true
+        display: true,
+        fontFamily: "'Roboto', sans-serif",
+        fontSize: 36,
       }
-    }
+    },
+
+    responsive: true,
 };
 
 /* call budget data display function upon change in selector value */
