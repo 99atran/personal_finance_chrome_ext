@@ -88,11 +88,24 @@ deleteBudget.onclick = function() {
     removeFromSelect(selector.selectedIndex);
     displayBudgetData(selector.options[0].value)
   }
-}
+};
 
 function displayBudgetData(budgetName) {
   if (budgetName === 'select an option...' ) {
     document.getElementById('data').innerHTML = 'ADVANCED DIAGNOSTIC INFO HERE?';
+    var newData = {
+      data: [0.0, 0.0],
+      label: 'No Budget Selected',
+      backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(84, 235, 185)'
+      ],
+      borderColor: 'rgb(42, 112, 89)',
+    };
+    config.data.datasets.pop();
+    window.pieChart.options.title.text = 'No Budget Selected';
+    config.data.datasets.push(newData);
+    window.pieChart.update();
   } else {
       chrome.storage.sync.get([budgetName], function (value) {
         var limit = parseFloat(value[budgetName][1]);
@@ -103,19 +116,25 @@ function displayBudgetData(budgetName) {
   }
 }
 
-function makeGraph(budgetName, balance, limit) {  
-  var newData = {
-    data: [balance, parseFloat((limit - balance).toFixed(2))],
-    label: budgetName,
-    backgroundColor: [
-      'rgb(255, 99, 132)',
-      'rgb(84, 235, 185)'
-    ],
-    borderColor: 'rgb(42, 112, 89)',
-  };
-  config.data.datasets.pop();
-  config.data.datasets.push(newData);
-  window.pieChart.update();
+function makeGraph(budgetName, balance, limit) {
+  if (limit - balance < 0) {
+    
+  } else {
+    var newData = {
+      data: [balance, parseFloat((limit - balance).toFixed(2))],
+      label: budgetName,
+      backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(84, 235, 185)'
+      ],
+      borderColor: 'rgb(42, 112, 89)',
+    };
+    config.data.datasets.pop();
+    config.data.datasets.push(newData);
+    window.pieChart.options.title.text = budgetName;
+    window.pieChart.update();
+  }
+
 }
 
 /* listeners and global vars here */
@@ -143,8 +162,8 @@ var config = {
     // Configuration options go here
     options: {
       title: {
-        text: '',
-        display: false
+        text: 'No Budget Selected',
+        display: true
       }
     }
 };

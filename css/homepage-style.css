@@ -68,6 +68,23 @@ button.delete:hover {
 
 }
 
+button.edit {
+    color: #000000 !important;
+    font-size: 14px !important;
+    float: right;
+    font-family: ‘Roboto’, sans-serif !important;
+    padding: 16px, 16px, 16px, 16px !important;
+    height: 30px !important;
+    background-color: #f9f9f9 !important;
+    border: 0px #0000 solid !important;
+    border-radius: 2px !important;
+}
+
+button.edit:hover {
+    background-color: #2af3b7 !important; /* Green */
+    color: black;
+}
+
 select {
     width: 50%;
     
