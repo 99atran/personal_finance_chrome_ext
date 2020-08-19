@@ -26,21 +26,51 @@ function removeFromSelect(index) {
 function validateName() {
   var inpObj = document.getElementById("budgetNameInput");
   
-  console.log("Input:"+document.getElementById("budgetNameInput").value + " " +inpObj.checkValidity());
+  console.log("Name Input:"+document.getElementById("budgetNameInput").value + " " +inpObj.checkValidity());
   return inpObj.checkValidity();
 } 
 
 /* Validates budget limit input */
-function validateLimit() {
-  var inpObj = document.getElementById("budgetLimitInput");
+function validateNumber(element) {
+  var inpObj = document.getElementById(element);
   
-  console.log("Input:"+document.getElementById("budgetLimitInput").value);
+  console.log("Number Input:"+document.getElementById(element).value);
 
   if (parseFloat(inpObj.value) == 0) {
     return false;
   }
 
   return inpObj.checkValidity();
+}
+
+/* Add expense to selected budget */
+let addExpense = document.getElementById("addExpense");
+addExpense.onclick = function() {
+  var err = "";
+  var budgetName = selector.options[selector.selectedIndex].value;
+  
+  if (!validateNumber("expenseInput")) {
+    console.log("Invalid Input");
+    err = "Ya dun goofed";
+  } else {
+    var expense = parseFloat(document.getElementById("expenseInput").value);
+
+    chrome.storage.sync.get([budgetName], function(value) {
+      var limit = parseFloat(value[budgetName][1]);
+      var balance = parseFloat(value[budgetName][0]);
+      var save = {};
+
+      save[budgetName] = [balance + expense, limit];
+      chrome.storage.sync.set(save);
+    });
+    
+    //Clear inputs
+    document.getElementById("expenseInput").value = "";
+
+    console.log("Added Expense");
+  }
+  
+  document.getElementById("errorMessage2").innerHTML = err;
 }
 
 /* updates the diagnostic section of the page to the current budget selected */
@@ -90,12 +120,7 @@ function displayBudgetData(budgetName) {
 /* edits the graph to reflect the data of the budget selected */
 function makeGraph(budgetName, balance, limit) {
   var newLabels = ['Spent', 'Remaining'];
-  var newTitle = {
-    text: 'No Budget Selected',
-    display: true,
-    fontFamily: "'Roboto', sans-serif",
-    fontSize: 36,
-  }
+  
   if (limit - balance < 0) {
     newLabels = ['Spent', 'Remaining', 'Overspend'];
     var newData = {
@@ -122,7 +147,6 @@ function makeGraph(budgetName, balance, limit) {
   config.data.datasets.pop();
   config.data.labels = newLabels;
   config.data.datasets.push(newData);
-  config.options.title = newTitle;
   window.pieChart.options.title.text = budgetName;
   window.pieChart.update();
 }
@@ -139,7 +163,7 @@ let createBudget = document.getElementById("addBudget");
 createBudget.onclick = function() {
   var err = "";
   
-  if (!validateName() || !validateLimit()) {
+  if (!validateName() || !validateNumber("budgetLimitInput")) {
     console.log("Invalid Input");
     err = "Ya dun goofed";
   } else {
@@ -183,27 +207,31 @@ deleteBudget.onclick = function() {
 
 // Get the modal
 var modal = document.getElementById("editModal");
-
-// Get the button that opens the modal
-var btn = document.getElementById("editBudget");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+var editBtn = document.getElementById("editBudget");
+var editSpan = document.getElementsByClassName("close")[0];
 
 // When the user clicks the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = "block";
+editBtn.onclick = function() {
+  var budgetName = selector.options[selector.selectedIndex].value;
+  
+  if (budgetName != 'select an option...' ) {
+    modal.style.display = "block";
+  }
 }
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
+editSpan.onclick = function() {
+  var budgetName = selector.options[selector.selectedIndex].value;
   modal.style.display = "none";
+  displayBudgetData(budgetName);
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
   if (event.target == modal) {
+    var budgetName = selector.options[selector.selectedIndex].value;
     modal.style.display = "none";
+    displayBudgetData(budgetName);
   }
 }
 
@@ -230,13 +258,9 @@ var config = {
     options: {
       title: {
         text: 'No Budget Selected',
-        display: true,
-        fontFamily: "'Roboto', sans-serif",
-        fontSize: 36,
+        display: true
       }
-    },
-
-    responsive: true,
+    }
 };
 
 /* call budget data display function upon change in selector value */
