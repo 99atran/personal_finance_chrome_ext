@@ -1,3 +1,4 @@
+/* Adds budgets in extension storage to the select */
 function populateBudgets() {
   chrome.storage.sync.get(null, function(items) {
     var allKeys = Object.keys(items);
@@ -43,36 +44,6 @@ function validateNumber(element) {
   }
 
   return inpObj.checkValidity();
-}
-
-/* Add expense to selected budget */
-let addExpense = document.getElementById("addExpense");
-addExpense.onclick = function() {
-  var err = "";
-  var budgetName = selector.options[selector.selectedIndex].value;
-  
-  if (!validateNumber("expenseInput")) {
-    console.log("Invalid Input");
-    err = "Ya dun goofed";
-  } else {
-    var expense = parseFloat(document.getElementById("expenseInput").value);
-
-    chrome.storage.sync.get([budgetName], function(value) {
-      var limit = parseFloat(value[budgetName][1]);
-      var balance = parseFloat(value[budgetName][0]);
-      var save = {};
-
-      save[budgetName] = [balance + expense, limit];
-      chrome.storage.sync.set(save);
-    });
-    
-    //Clear inputs
-    document.getElementById("expenseInput").value = "";
-
-    console.log("Added Expense");
-  }
-  
-  document.getElementById("errorMessage2").innerHTML = err;
 }
 
 /* updates the diagnostic section of the page to the current budget selected */
@@ -155,6 +126,35 @@ function makeGraph(budgetName, balance, limit) {
 
 /************************************************************************************************************/
 
+/* Add expense to selected budget */
+let addExpense = document.getElementById("addExpense");
+addExpense.onclick = function() {
+  var err = "";
+  var budgetName = selector.options[selector.selectedIndex].value;
+  
+  if (!validateNumber("expenseInput")) {
+    console.log("Invalid Input");
+    err = "Ya dun goofed";
+  } else {
+    var expense = parseFloat(document.getElementById("expenseInput").value);
+
+    chrome.storage.sync.get([budgetName], function(value) {
+      var limit = parseFloat(value[budgetName][1]);
+      var balance = parseFloat(value[budgetName][0]);
+      var save = {};
+
+      save[budgetName] = [balance + expense, limit];
+      chrome.storage.sync.set(save);
+    });
+    
+    //Clear inputs
+    document.getElementById("expenseInput").value = "";
+
+    console.log("Added Expense");
+  }
+  
+  document.getElementById("errorMessage2").innerHTML = err;
+}
 
 /* listeners and global vars here */
 document.addEventListener('DOMContentLoaded', populateBudgets);
