@@ -72,19 +72,19 @@ function displayBudgetData(budgetName) {
         makeGraph(budgetName, balance, limit);
         let displayStatus = '$' + balance.toFixed(2) + ' of $' + limit.toFixed(2) + ' (' + percent.toFixed(0) + '%)';
         
-        if (balance / limit < 0.5) {
-          document.getElementById('data').style.color = 'black';
-          displayStatus += "<br>This budget is very healthy, no need to worry for now."
-        } else if (balance / limit < 0.75) {
-          document.getElementById('data').style.color = 'black';
-          displayStatus += "<br>This budget is healthy, keep an eye out on purchases charging to this budget."
-        } else if (balance / limit < 1.0) {
-          document.getElementById('data').style.color = 'black';
-          displayStatus += "<br>This budget is near maximum capacity, spend wisely or sparingly to avoid overcharging."
-        } else {
-          document.getElementById('data').style.color = 'red';
-          displayStatus += "<br>This budget is BUSTED! Try to spend more wisely when you are budgeting :("
-        }
+        // if (balance / limit < 0.5) {
+        //   document.getElementById('data').style.color = 'black';
+        //   displayStatus += "<br>This budget is very healthy, no need to worry for now."
+        // } else if (balance / limit < 0.75) {
+        //   document.getElementById('data').style.color = 'black';
+        //   displayStatus += "<br>This budget is healthy, keep an eye out on purchases charging to this budget."
+        // } else if (balance / limit < 1.0) {
+        //   document.getElementById('data').style.color = 'black';
+        //   displayStatus += "<br>This budget is near maximum capacity, spend wisely or sparingly to avoid overcharging."
+        // } else {
+        //   document.getElementById('data').style.color = 'red';
+        //   displayStatus += "<br>This budget is BUSTED! Try to spend more wisely when you are budgeting :("
+        // }
         document.getElementById('data').innerHTML = displayStatus;
       });
   }
