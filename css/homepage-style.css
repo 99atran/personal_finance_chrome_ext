@@ -134,8 +134,20 @@ div.diagnostic {
     box-shadow: 0 8px 16px 0 hsla(0, 0%, 84%, 1.5);
 
     font-size: 20px;
+}
 
-    height: 50%;
+div.statistics {
+    border-style: solid;
+    border-width: 1px;
+    border-color:red;
+    width: 55%;
+}
+
+div.chart {
+    border-style: solid;
+    border-width: 1px;
+    border-color: blue;
+    width: 45%;
 }
 
 p.status {
@@ -208,4 +220,13 @@ input[type=submit]:hover {
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+.flex-container {
+    display: flex;
+}
+
+.flex-container > div {
+    margin: 0;
+    padding: 0;
 }

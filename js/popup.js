@@ -65,6 +65,6 @@ chrome.storage.sync.get(null, function(items) {
 
 let newTab = document.getElementById('newTab');
 newTab.onclick = function(element) {
-  chrome.tabs.create({url: "homepage.html"});
+  chrome.tabs.create({url: "html/homepage.html"});
 };
 
