@@ -4,8 +4,9 @@ title {
 }
 
 body {
-    background-image: url('background.png');
-    background-position: center;
+    background-color: #aaaaaa;
+    /* background-image: url('background.png'); */
+    /* background-position: center; */
 }
 
 main {margin: 0px 0px 10px 10px;}

@@ -13,7 +13,7 @@ function printBudgetPanels(key) {
     panelTitle.setAttribute("class", "panelTitle");
 
     var panelStatus = document.createElement("p");
-    var statusTextNode = document.createTextNode("Broke Status: " +balance +"/" +limit);
+    var statusTextNode = document.createTextNode("Broke Status: $" +balance.toFixed(2) +" / $" +limit.toFixed(2));
     panelStatus.appendChild(statusTextNode);
 
     var textDiv = document.createElement("div");
