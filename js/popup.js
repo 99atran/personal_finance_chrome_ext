@@ -1,5 +1,6 @@
 'use strict';
 
+/* This function generates the html components for the budget cards in the popup */
 function printBudgetPanels(key) {
   chrome.storage.sync.get([key], function (value) {
     
@@ -58,11 +59,13 @@ function printBudgetPanels(key) {
   });
 }
 
+/* Gets the users budget data to generate popup cards */
 chrome.storage.sync.get(null, function(items) {
   var allKeys = Object.keys(items);
   allKeys.forEach(printBudgetPanels);
 });
 
+/* Create a new tab for the homepage from the "Advanced Reports Button" */
 let newTab = document.getElementById('newTab');
 newTab.onclick = function(element) {
   chrome.tabs.create({url: "../html/homepage.html"});

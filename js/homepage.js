@@ -6,6 +6,7 @@ function populateBudgets() {
   });
 }
 
+/* Adds new budget to the select menu */
 function addToSelect(key) {
   var select = document.getElementById('BudgetsMenu');
 
@@ -16,6 +17,7 @@ function addToSelect(key) {
   select.appendChild(option_to_add);
 }
 
+/* Removes selected budget to the select menu */
 function removeFromSelect(index) {
   var select = document.getElementById('BudgetsMenu');
 
