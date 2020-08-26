@@ -23,6 +23,15 @@
     "48": "images/proto1_48.png",
     "128": "images/proto1_128.png"
   },
+  "content_scripts": [
+    {
+      "matches": ["https://*.amazon.com/*"],
+      "css": ["css/sites/amazon.css"],
+      "js": ["js/sites/amazon.js"],
+      "run_at": "document_idle",
+      "all_frames": true
+    }
+  ],
   "manifest_version": 2,
   "content_security_policy": "script-src 'self' https://fonts.googleapis.com; object-src 'self'"
 }

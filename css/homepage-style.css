@@ -144,14 +144,30 @@ div.statistics {
     border-style: solid;
     border-width: 1px;
     border-color:red;
-    width: 55%;
+    width: 60%;
+    display: grid;
+    grid-template-columns: 49% 49%;
+    grid-row: auto auto;
+    column-gap: 2%;
+    row-gap: 5%;
 }
+
+div.box {
+    background-color:#333;
+    padding:20px;
+    border-radius:10px;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
 
 div.chart {
     border-style: solid;
     border-width: 1px;
     border-color: blue;
-    width: 45%;
+    width: 40%;
 }
 
 p.status {
