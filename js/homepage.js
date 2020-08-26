@@ -49,7 +49,10 @@ function validateNumber(element) {
 /* updates the diagnostic section of the page to the current budget selected */
 function displayBudgetData(budgetName) {
   if (budgetName === 'select an option...' ) {
-    document.getElementById('data').innerHTML = 'Select a budget to see it\'s breakdown';
+    document.getElementById('spend').innerHTML = "N/A";
+        document.getElementById('limit').innerHTML = "N/A";
+        document.getElementById('percent').innerHTML = "N/A";
+        document.getElementById('data').innerHTML = "N/A";
     var newData = {
       data: [0.0, 0.0],
       label: 'No Budget Selected',
@@ -70,7 +73,6 @@ function displayBudgetData(budgetName) {
         var percent = (balance / limit) * 100;
 
         makeGraph(budgetName, balance, limit);
-        let displayStatus = '$' + balance.toFixed(2) + ' of $' + limit.toFixed(2) + ' (' + percent.toFixed(0) + '%)';
         
         // if (balance / limit < 0.5) {
         //   document.getElementById('data').style.color = 'black';
@@ -85,7 +87,10 @@ function displayBudgetData(budgetName) {
         //   document.getElementById('data').style.color = 'red';
         //   displayStatus += "<br>This budget is BUSTED! Try to spend more wisely when you are budgeting :("
         // }
-        document.getElementById('data').innerHTML = displayStatus;
+        document.getElementById('spend').innerHTML = '$' + balance.toFixed(2);
+        document.getElementById('limit').innerHTML = '$'+ limit.toFixed(2);
+        document.getElementById('percent').innerHTML = percent.toFixed(2) + '%';
+        document.getElementById('data').innerHTML = "Some Filler: "+budgetName;
       });
   }
 }
