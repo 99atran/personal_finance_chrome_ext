@@ -12,44 +12,38 @@
     </div>
     <main>
       <div>
+        <button id='createBudget'>Create New Budget</button>
+        <div id="createModal" class="modal">
+          <div class="modal-content">
+            <label for="budgetName">Budget Name</label>
+            <span class="close">&times;</span>
+            <input type="text" id="budgetNameInput" placeholder="Budget name.." pattern="\b[A-Za-z\d]+( [A-Za-z\d]*)*" required>
         
-
-          <button id='createBudget'>Create New Budget</button>
-        
-          <div id="createModal" class="modal">
-            <div class="modal-content">
-              <label for="budgetName">Budget Name</label>
-              <span class="close">&times;</span>
-              <input type="text" id="budgetNameInput" placeholder="Budget name.." pattern="\b[A-Za-z\d]+( [A-Za-z\d]*)*" required>
-          
-              <label for="budgetLimit">Budget Limit</label>
-              <input type="number" id="budgetLimitInput" placeholder="Ex. 999.00" min="0" step="0.01" required>
-              
-              <p id="errorMessage"></p>
-              
-              <button id="addBudget">Add</button>
-            </div>
+            <label for="budgetLimit">Budget Limit</label>
+            <input type="number" id="budgetLimitInput" placeholder="Ex. 999.00" min="0" step="0.01" required>
+            
+            <p id="errorMessage"></p>
+            
+            <button id="addBudget">Add</button>
           </div>
+        </div>
 
-
-
-
-          <!-- <div class="dropdown" id="createBudget">
-            <span>Create New Budget</span>
-            <div class="dropdown-content">
-              <label for="budgetName">Budget Name</label>
-              <input type="text" id="budgetNameInput" placeholder="Budget name.." pattern="\b[A-Za-z\d]+( [A-Za-z\d]*)*" required>
+        <!-- Keep comment for future reference -->
+        <!-- <div class="dropdown" id="createBudget">
+          <span>Create New Budget</span>
+          <div class="dropdown-content">
+            <label for="budgetName">Budget Name</label>
+            <input type="text" id="budgetNameInput" placeholder="Budget name.." pattern="\b[A-Za-z\d]+( [A-Za-z\d]*)*" required>
+        
+            <label for="budgetLimit">Budget Limit</label>
+            <input type="number" id="budgetLimitInput" placeholder="Ex. 999.00" min="0" step="0.01" required>
+            
+            <p id="errorMessage"></p>
+            
+            <button id="addBudget">Add</button>
+          </div>
+        </div> -->
           
-              <label for="budgetLimit">Budget Limit</label>
-              <input type="number" id="budgetLimitInput" placeholder="Ex. 999.00" min="0" step="0.01" required>
-              
-              <p id="errorMessage"></p>
-              
-              <button id="addBudget">Add</button>
-            </div>
-          </div> -->
-        
-        
         <h2>Select Budget</h2>
         <select name="BudgetsMenu" id="BudgetsMenu">
           <option id='select_option'>select an option...</option>
