@@ -30,3 +30,22 @@ chrome.runtime.onInstalled.addListener(function() {
   //   allKeys.forEach(printBudgetData);
   // });
 });
+
+// this doesn't work
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  if (changeInfo.url) {
+      // chrome.tabs.sendMessage(tabId, {
+      //     message: 'hello',
+      //     url: changeInfo.url
+      // });
+      chrome.tabs.executeScript({
+        file: '../sites/amazon.js'
+      });
+      chrome.tabs.executeScript({
+        code: 'remove_button()'
+      });
+      chrome.tabs.executeScript({
+        code: 'locate_button()'
+      });
+  }    
+});

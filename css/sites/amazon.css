@@ -1,0 +1,12 @@
+.snacker_button {
+  border-radius: 50%;
+  border: 1px solid black;
+  border-color: black;
+  background-color: aquamarine;
+  text-decoration: none;
+  height: 15px !important;
+  width: 10px !important;
+  margin-top: -5px !important;
+  margin-left: 4px !important;
+  margin-right: 4px !important;
+}
